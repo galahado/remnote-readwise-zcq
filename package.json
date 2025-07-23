@@ -11,7 +11,8 @@
   "dependencies": {
     "@remnote/plugin-sdk": "^0.0.39",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "remnote-plugin-template-react": "file:"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",

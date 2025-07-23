@@ -182,7 +182,29 @@ const findOrCreateHighlight = async (
     return { success: false, error: `Highlight for book ${bookRem.text?.[0]} has no id` };
   }
   if (highlight.note) {
-    highlightRem.setPowerupProperty(powerups.highlight, highlightSlots.note, [highlight.note]);
+    let is_words = false;
+    for (const tag of highlight.tags) {
+      if (tag.name === 'words') {
+          is_words = true;
+          break;
+      }
+    }
+    if (is_words) {
+      let words = highlight.note.split("---");
+      for (const word of words) {
+        if (word.trim().length > 0) {
+          let parts = word.split(":");
+          const rem = await plugin.rem.createRem();
+          rem?.setParent(highlightRem._id);
+          rem?.setText([parts[0]?.trim()]);
+          rem?.setBackText([parts[1]?.trim()]);
+          rem?.setPracticeDirection("forward");
+        }
+      }
+    }
+    else {
+      highlightRem.setPowerupProperty(powerups.highlight, highlightSlots.note, [highlight.note]);
+    }
   }
 
   if (highlight.tags && highlight.tags.length > 0) {
@@ -197,8 +219,8 @@ const findOrCreateHighlight = async (
       }
     }
   }
-  if (highlight.readwise_url) {
-    addLinkAsSource(plugin, highlightRem, highlight.readwise_url);
+  if (highlight.url) {
+    addLinkAsSource(plugin, highlightRem, highlight.url);
   }
   return { success: true, data: highlightRem };
 };

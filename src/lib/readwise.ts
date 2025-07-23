@@ -46,7 +46,19 @@ export const getReadwiseExportsSince = async (
       }
     }
     const responseJson = await response.json();
-    fullData.push(...responseJson['results']);
+
+    if(updatedAfter) {
+      let book_result = {"results": []};
+      for (const book of responseJson['results']) {
+        book.highlights = book.highlights.filter((record) => record.updated_at > updatedAfter);
+        book_result.results.push(book);
+      }
+      fullData.push(...book_result.results);
+    }
+    else {
+      fullData.push(...responseJson['results']);
+    }
+
     nextPageCursor = responseJson['nextPageCursor'];
     if (!nextPageCursor) {
       break;
