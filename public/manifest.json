@@ -3,7 +3,7 @@
   "name": "Readwise Sync",
   "description": "Sync your Readwise highlights with RemNote",
   "enableOnMobile": true,
-  "id": "Chuanqi-Zhang.remnote-readwise",
+  "id": "Chuanqi-Zhang-remnote-readwise",
   "manifestVersion": 1,
   "repoUrl": "https://github.com/galahado/remnote-readwise-zcq",
   "version": {
